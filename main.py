@@ -1,3 +1,4 @@
+# this works on python 2
 import urllib
 from datetime import datetime
 
