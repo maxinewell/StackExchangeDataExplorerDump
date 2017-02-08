@@ -19,6 +19,7 @@ def reporthook(count, block_size, total_size):
     duration = time.time() - start_time
     progress_size = int(count * block_size)
     speed = int(progress_size / (1024 * duration))
+    # avoiding overflow 100%
     percent = min(int(count * block_size * 100 / total_size), 100)
     sys.stdout.write("\r...%d%%, %d MB, %d KB/s, %d seconds passed" %
                     (percent, progress_size / (1024 * 1024), speed, duration))
@@ -26,12 +27,10 @@ def reporthook(count, block_size, total_size):
 
 
 def donwload(rg):
-    file = urllib.URLopener()
     print(str(datetime.now()) + " Download start.")
     url = urlRegex % (rg)
     dst = directoryRegex % (rg)
-    #file.retrieve(url, dst)
-    urllib.urlretrieve(url,dst, reporthook)
+    urllib.urlretrieve(url, dst, reporthook)
     print("\n" + str(datetime.now()) + " File " + str(rg) + ".csv Success!")
 
 
