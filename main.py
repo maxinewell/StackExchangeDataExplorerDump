@@ -88,8 +88,6 @@ def detOSPath():
 
 
 if __name__ == '__main__':
-    # table size 42014360
-    # calculated size 33.2 GB total
     tb = raw_input("What is the TableName: ")
     if tb in tbList:
         directoryRegex = detOSPath()
