@@ -3,7 +3,7 @@ import urllib
 import sys
 import time
 import csv
-import platform
+import os
 from datetime import datetime
 
 tbList = ["Posts", "Users", "Comments", "Badges",
@@ -76,21 +76,21 @@ def getSize(tb):
     return next(cr)[0]
 
 
-def detOSPath():
-    if platform.system() is "Windows":
-        return 'D:\CSV\%s.csv'
-    elif platform.system() is "Darwin":
-        return '/Users/maxinewell/Downloads/SO/%s.csv'
+def detDst(dst):
+    if os.path.isdir(dst):
+        return dst + '/%s.csv'
     else:
-        sys.exit("System not supported!")
+        sys.exit("Directory not exist.")
 
 
 if __name__ == '__main__':
-    tb = raw_input("What is the TableName: ")
+    tb = raw_input("TableName: ")
     if tb in tbList:
-        directoryRegex = detOSPath()
+        dst = raw_input('Directory: ')
+        directoryRegex = detDst(dst)
         size = getSize(tb)
-        print "Start download table " + '\033[1m' + tb + '\033[0m' + " contains " + '\033[1m' + size + '\033[0m' + " results."
+        print "Start download table " + '\033[1m' + tb + '\033[0m' + ' to ' + '\033[1m' + dst + '\033[0m' \
+              + " contains " + '\033[1m' + size + '\033[0m' + " results."
         process(tb, int(size))
     else:
         sys.exit("Table Name is invalid.")
