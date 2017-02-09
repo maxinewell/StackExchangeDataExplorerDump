@@ -31,6 +31,8 @@ urlSizeRegex = "http://data.stackexchange.com/stackoverflow/csv/781507?tbname=%s
 # change directoryRegex plz!
 # Mac
 directoryRegex = ''
+
+
 # Win
 # directoryRegex = 'D:\CSV\%s.csv'
 
@@ -89,7 +91,7 @@ if __name__ == '__main__':
     if tb in tbList:
         directoryRegex = detOSPath()
         size = getSize(tb)
-        print "Start download table "+'\033[1m' + tb + '\033[0m' + " contains " + '\033[1m' + size + '\033[0m' + " results."
+        print "Start download table " + '\033[1m' + tb + '\033[0m' + " contains " + '\033[1m' + size + '\033[0m' + " results."
         process(tb, int(size))
     else:
         sys.exit("Table Name is invalid.")
