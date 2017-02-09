@@ -1,5 +1,9 @@
 # this works on python 2
-import urllib, sys, time, csv, platform
+import urllib
+import sys
+import time
+import csv
+import platform
 from datetime import datetime
 
 tbList = ["Posts", "Users", "Comments", "Badges",
@@ -28,13 +32,7 @@ tbList = ["Posts", "Users", "Comments", "Badges",
           "VoteTypes"]
 urlRegex = "http://data.stackexchange.com/stackoverflow/csv/781501?TableName=%s&beginId=%s"
 urlSizeRegex = "http://data.stackexchange.com/stackoverflow/csv/781507?tbname=%s"
-# change directoryRegex plz!
-# Mac
 directoryRegex = ''
-
-
-# Win
-# directoryRegex = 'D:\CSV\%s.csv'
 
 
 # progress
@@ -59,9 +57,9 @@ def reporthook(count, block_size, total_size):
 def donwload(tb, rg):
     print(str(datetime.now()) + '\033[1m' + " Id " + str(rg) + " Download start." + '\033[0m')
     url = urlRegex % (tb, rg)
-    dst = directoryRegex % (rg)
+    dst = directoryRegex % (tb + str(rg))
     urllib.urlretrieve(url, dst, reporthook)
-    print("\n" + str(datetime.now()) + '\033[1m' + " File " + str(rg) + ".csv Success!" + '\033[0m')
+    print("\n" + str(datetime.now()) + '\033[1m' + " File " + str(tb+str(rg)) + ".csv Success!" + '\033[0m')
 
 
 def process(tb, max):
