@@ -1,5 +1,5 @@
 # this works on python 2
-import urllib, sys, time, csv
+import urllib, sys, time, csv, platform
 from datetime import datetime
 
 tbList = ["Posts", "Users", "Comments", "Badges",
@@ -30,7 +30,7 @@ urlRegex = "http://data.stackexchange.com/stackoverflow/csv/781501?TableName=%s&
 urlSizeRegex = "http://data.stackexchange.com/stackoverflow/csv/781507?tbname=%s"
 # change directoryRegex plz!
 # Mac
-directoryRegex = '/Users/maxinewell/Downloads/SO/%s.csv'
+directoryRegex = ''
 # Win
 # directoryRegex = 'D:\CSV\%s.csv'
 
@@ -73,12 +73,21 @@ def getSize(tb):
     return next(cr)[0]
 
 
+def detOSPath():
+    if platform.system() is "Windows":
+        return 'D:\CSV\%s.csv'
+    elif platform.system() is "Darwin":
+        return '/Users/maxinewell/Downloads/SO/%s.csv'
+    else:
+        sys.exit("System not supported!")
+
 
 if __name__ == '__main__':
     # table size 42014360
     # calculated size 33.2 GB total
     tb = raw_input("What is the TableName: ")
     if tb in tbList:
+        directoryRegex = detOSPath()
         size = getSize(tb)
         print "Start download table "+'\033[1m' + tb + '\033[0m' + " contains " + '\033[1m' + size + '\033[0m' + " results."
         process(tb, int(size))
